@@ -13,7 +13,7 @@ from pathlib import Path
 app = Flask(__name__)
 model = YOLO("yolo11x-cls.pt")
 
-MQTT_BROKER = '192.168.112.204'
+MQTT_BROKER = '192.168.225.34'
 MQTT_PORT = 1883
 MQTT_TOPIC = 'esp32/sensors'
 
@@ -97,7 +97,7 @@ def upload_image():
         tags = [model.names[i] for i in t5]
 
         danger_score = compute_danger(tags)
-        if danger_score >= 0.1:
+        if danger_score >= 0:
             image.save(file_path)
             print(f"Image saved to {file_path}")
             publish_sensor_data(danger_score)
